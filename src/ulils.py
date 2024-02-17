@@ -47,8 +47,8 @@ class Product:
                 item.quantity += new_product.quantity
                 if item.price < new_product.price:
                     item.price = new_product.price
-        else:
-            return new_product
+            else:
+                return new_product
 
     @property
     def price(self):
