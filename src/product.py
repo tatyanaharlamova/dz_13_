@@ -11,6 +11,17 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        Product.product_list.append(self)
+
+    def __str__(self):
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __len__(self):
+        return self.quantity
+
+    def __add__(self, other):
+        result = self.__price * self.quantity + other.__price * other.quantity
+        return result
 
     @classmethod
     def create_product(cls, new_product_data):
@@ -46,4 +57,6 @@ class Product:
                     print('Операция отменена')
                 else:
                     print("Некорректный вввод")
+
+
 
