@@ -1,4 +1,4 @@
-from product import Product
+from src.product import Product
 
 
 class Category:
@@ -56,6 +56,9 @@ class ProductIterator:
 # p1 = Product("Джинсы", "Джинсы классические", 2000, 7)
 # p2 = Product("Рубашка", "Рубашка хлопковая", 1000, 5)
 # c1 = Category("Одежда", "Повседневная одежда", [p1, p2])
-# print(c1)
+# print(c1.count_of_products)
+# p5 = Product("Платье", "Платье летнее", 2000, 1)
+# c1.add_product(p5)
+# print(c1.count_of_products)
 # it = ProductIterator(c1)
 # print(list(it))
