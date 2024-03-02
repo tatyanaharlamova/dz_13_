@@ -6,9 +6,11 @@ class BaseCategory(ABC):
     """
     Абстрактный класс для Категории и Заказа
     """
+    @abstractmethod
     def __str__(self):
         pass
 
+    @abstractmethod
     def __len__(self):
         pass
 
