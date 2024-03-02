@@ -1,7 +1,19 @@
-from src.product import Product, Smartphone, LawnGrass
+from src.product import Product, Smartphone, LawnGrass, MixinRepr
+from abc import ABC, abstractmethod
 
 
-class Category:
+class BaseCategory(ABC):
+    """
+    Абстрактный класс для Категории и Заказа
+    """
+    def __str__(self):
+        pass
+
+    def __len__(self):
+        pass
+
+
+class Category(MixinRepr, BaseCategory):
     """
     Класс категорий товаров
     """
@@ -18,6 +30,7 @@ class Category:
         self.name = name
         self.description = description
         self.__products = products
+        super().__init__()
         Category.count_of_products += len(self.__products)
 
         Category.number_of_categories += 1
@@ -41,7 +54,7 @@ class Category:
         """
         Метод для добавления нового продукта в категорию
         """
-        if isinstance(product, (Product, Smartphone, LawnGrass)):
+        if isinstance(product, Product):
             self.__products.append(product)
             self.count_of_products += 1
         else:
@@ -56,6 +69,20 @@ class Category:
         for product in self.__products:
             prod_list.append(f"{product.name}, цена {product.price} руб. Отстаток: {product.quantity} шт.")
         return prod_list
+
+
+class Order(BaseCategory, MixinRepr):
+    def __init__(self, product, price, quantity):
+        self.product = product
+        self.price = price
+        self.quantity = quantity
+        super().__init__()
+
+    def __str__(self):
+        return f'{self.product}, цена {self.price} руб., {self.quantity} шт.'
+
+    def __len__(self):
+        return self.quantity
 
 
 class ProductIterator:
@@ -74,12 +101,10 @@ class ProductIterator:
             raise StopIteration
 
 
-# p1 = Product("Джинсы", "Джинсы классические", 2000, 7)
-# p2 = Product("Рубашка", "Рубашка хлопковая", 1000, 5)
-# c1 = Category("Одежда", "Повседневная одежда", [p1, p2])
-# print(c1.count_of_products)
-# p5 = Product("Платье", "Платье летнее", 2000, 1)
-# c1.add_product(p5)
-# print(c1.count_of_products)
+# p_1 = Product("Джинсы", "Джинсы классические", 2000, 7, "синий")
+# p_2 = Product("Рубашка", "Рубашка хлопковая", 1000, 2, "белый")
+# c_1 = Category("Одежда", "Повседневная одежда", [p_1, p_2])
+
+
 # it = ProductIterator(c1)
 # print(list(it))
