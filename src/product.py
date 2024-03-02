@@ -1,4 +1,41 @@
-class Product:
+from abc import ABC, abstractmethod
+
+
+class BaseProduct(ABC):
+
+    """
+    Абстрактый класс продукта, предписывающий наследникам реализовывать методы str, len, add
+    """
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def __len__(self):
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+    @abstractmethod
+    def price(self):
+        pass
+
+
+class MixinRepr:
+    """
+    Миксин для вывода информации о том, что был создан продукт
+    """
+
+    def __init__(self):
+        print(self.__repr__())
+
+    def __repr__(self):
+        return f'{self.__class__.__name__}, {self.__dict__}'
+
+
+class Product(MixinRepr, BaseProduct):
     """
     Класс продуктов
     """
@@ -9,7 +46,7 @@ class Product:
 
     product_list = []
 
-    def __init__(self, name: str, description: str, price: float, quantity: int, color: str) -> object:
+    def __init__(self, name: str, description: str, price: float, quantity: int, color: str):
         """
         Конструктор для создания экземпляра класса
         """
@@ -18,6 +55,7 @@ class Product:
         self.__price = price
         self.quantity = quantity
         self.color = color
+        super().__init__()
 
     def __str__(self) -> str:
         """
@@ -93,10 +131,10 @@ class Smartphone(Product):
 
     def __init__(self, name: str, description: str, price: float, quantity: int, color: str, performance: float,
                  model: str, memory: int):
-        super().__init__(name, description, price, quantity, color)
         self.performance = performance
         self.model = model
         self.memory = memory
+        super().__init__(name, description, price, quantity, color)
 
 
 class LawnGrass(Product):
@@ -106,7 +144,11 @@ class LawnGrass(Product):
 
     def __init__(self, name: str, description: str, price: float, quantity: int, color: str, country: str,
                  period_of_grown: int):
-        super().__init__(name, description, price, quantity, color)
         self.country = country
         self.period_of_grown = period_of_grown
+        super().__init__(name, description, price, quantity, color)
+
+
+
+
 
