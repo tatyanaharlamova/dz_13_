@@ -1,4 +1,4 @@
-from src.category import Category
+from src.category import Category, NoneProductsException
 from src.product import Product, Smartphone, LawnGrass
 import pytest
 
@@ -53,8 +53,14 @@ def test_add_product(category_clothes, new_product):
     """
     category_clothes.add_product(new_product)
     assert category_clothes.count_of_products == 3
+    category_clothes.add_product(Product("Брюки", "Брюки классические", 2000, 0, "синий"))
+    assert category_clothes.count_of_products == 3
     with pytest.raises(TypeError):
         category_clothes.add_product("Рубашка")
+
+
+def test_avg_price(category_clothes):
+    assert category_clothes.avg_price() == 1500.0
 
 
 def test__len__(category_clothes):

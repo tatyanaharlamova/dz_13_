@@ -2,10 +2,22 @@ from src.product import Product, Smartphone, LawnGrass, MixinRepr
 from abc import ABC, abstractmethod
 
 
+class NoneProductsException(Exception):
+    """
+    Класс исключения для продуктов с нулевым количеством
+    """
+    def __init__(self, *args, **kwargs):
+        self.message = args[0] if args else 'Ошибка: добавление объекта с нулевым количеством'
+
+    def __str__(self):
+        return self.message
+
+
 class BaseCategory(ABC):
     """
     Абстрактный класс для Категории и Заказа
     """
+
     @abstractmethod
     def __str__(self):
         pass
@@ -57,10 +69,32 @@ class Category(MixinRepr, BaseCategory):
         Метод для добавления нового продукта в категорию
         """
         if isinstance(product, Product):
-            self.__products.append(product)
-            self.count_of_products += 1
+            try:
+                if product.quantity == 0:
+                    raise NoneProductsException
+            except NoneProductsException as e:
+                print(e)
+            else:
+                self.__products.append(product)
+                self.count_of_products += 1
+                print("Товар добавлен")
+            finally:
+                print("Обработка добавления товара завершена")
         else:
             raise TypeError("Можно добавлять только объекты класса Product или его наследников")
+
+    def avg_price(self):
+        """
+        Метод расчета средней стоимости товаров
+        """
+        summ = 0
+        for product in self.__products:
+            summ += product.price
+        try:
+            avg = summ / len(self.__products)
+            return avg
+        except ZeroDivisionError:
+            return 0
 
     @property
     def product(self) -> list:
@@ -74,6 +108,10 @@ class Category(MixinRepr, BaseCategory):
 
 
 class Order(BaseCategory, MixinRepr):
+    """
+    Класс заказа
+    """
+
     def __init__(self, product, price, quantity):
         self.product = product
         self.price = price
@@ -85,6 +123,23 @@ class Order(BaseCategory, MixinRepr):
 
     def __len__(self):
         return self.quantity
+
+    def add_product(self, product) -> None:
+        """
+        Метод для добавления нового продукта в заказ
+        """
+        if isinstance(product, Product):
+            try:
+                if product.quantity == 0:
+                    raise NoneProductsException
+            except NoneProductsException as e:
+                print(e)
+            else:
+                self.product.append(product)
+            finally:
+                print("Обработка завершена")
+        else:
+            raise TypeError("Можно добавлять только объекты класса Product или его наследников")
 
 
 class ProductIterator:
@@ -103,10 +158,4 @@ class ProductIterator:
             raise StopIteration
 
 
-# p_1 = Product("Джинсы", "Джинсы классические", 2000, 7, "синий")
-# p_2 = Product("Рубашка", "Рубашка хлопковая", 1000, 2, "белый")
-# c_1 = Category("Одежда", "Повседневная одежда", [p_1, p_2])
 
-
-# it = ProductIterator(c1)
-# print(list(it))
