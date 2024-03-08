@@ -1,5 +1,5 @@
-from src.category import Category, NoneProductsException
-from src.product import Product, Smartphone, LawnGrass
+from src.category import Category
+from src.product import Product
 import pytest
 
 
@@ -53,7 +53,8 @@ def test_add_product(category_clothes, new_product):
     """
     category_clothes.add_product(new_product)
     assert category_clothes.count_of_products == 3
-    category_clothes.add_product(Product("Брюки", "Брюки классические", 2000, 0, "синий"))
+    category_clothes.add_product(Product("Брюки", "Брюки классические", 2000, 0,
+                                         "синий"))
     assert category_clothes.count_of_products == 3
     with pytest.raises(TypeError):
         category_clothes.add_product("Рубашка")
@@ -74,7 +75,8 @@ def test_getter_product(category_clothes):
     """
     Тест геттера списка товаров
     """
-    assert category_clothes.product == ['Джинсы, цена 2000 руб. Отстаток: 7 шт.', 'Рубашка, цена 1000 руб. Отстаток: 2 шт.']
+    assert category_clothes.product == ['Джинсы, цена 2000 руб. Отстаток: 7 шт.',
+                                        'Рубашка, цена 1000 руб. Отстаток: 2 шт.']
 
 
 def test__str__(category_clothes):
@@ -82,5 +84,3 @@ def test__str__(category_clothes):
     Тест строкового представления экземплярв класса
     """
     assert str(category_clothes) == 'Одежда, количество продуктов: 9'
-
-

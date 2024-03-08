@@ -1,4 +1,4 @@
-from src.product import Product, Smartphone, LawnGrass, MixinRepr
+from src.product import Product, MixinRepr
 from abc import ABC, abstractmethod
 
 
@@ -156,6 +156,3 @@ class ProductIterator:
             return self.category.product[self.current_value]
         else:
             raise StopIteration
-
-
-

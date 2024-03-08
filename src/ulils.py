@@ -18,7 +18,3 @@ def create_instance(file_name):
             category = Category(category_data["name"], category_data["description"], Product.product_list)
             category_list.append(category)
         return category_list
-
-
-print(create_instance("products.json"))
-print(Product.product_list)
