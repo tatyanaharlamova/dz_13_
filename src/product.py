@@ -147,8 +147,3 @@ class LawnGrass(Product):
         self.country = country
         self.period_of_grown = period_of_grown
         super().__init__(name, description, price, quantity, color)
-
-
-
-
-

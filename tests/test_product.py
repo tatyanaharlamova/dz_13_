@@ -122,7 +122,8 @@ def test_set_prise(product_jeans):
 
 @pytest.fixture()
 def create_smartphone():
-    return Smartphone("Iphone15", "Iphone15", 100000, 3, "белый", 60, "Pro", 256)
+    return Smartphone("Iphone15", "Iphone15", 100000, 3, "белый", 60,
+                      "Pro", 256)
 
 
 def test_init_smartphone(create_smartphone):
@@ -133,7 +134,8 @@ def test_init_smartphone(create_smartphone):
 
 @pytest.fixture()
 def create_grass():
-    return LawnGrass("Лилипут", "спортивный газон", 1000, 2, "зеленый", "Россия", 12)
+    return LawnGrass("Лилипут", "спортивный газон", 1000, 2, "зеленый",
+                     "Россия", 12)
 
 
 def test_init_lawn_grass(create_grass):
@@ -146,5 +148,3 @@ def test__add__different_classes(create_smartphone, create_grass, product_dress)
     with pytest.raises(TypeError):
         create_grass + create_smartphone
         create_smartphone + product_dress
-
-
