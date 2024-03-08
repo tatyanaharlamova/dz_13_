@@ -61,6 +61,9 @@ def test_add_product(category_clothes, new_product):
 
 
 def test_avg_price(category_clothes):
+    """
+    Тест расчета средней цены товаров
+    """
     assert category_clothes.avg_price() == 1500.0
 
 

@@ -127,6 +127,9 @@ def create_smartphone():
 
 
 def test_init_smartphone(create_smartphone):
+    """
+    Тест на создание экземпляра класса Смартфон
+    """
     assert create_smartphone.price == 100000
     assert create_smartphone.color == "белый"
     assert create_smartphone.memory == 256
@@ -139,12 +142,18 @@ def create_grass():
 
 
 def test_init_lawn_grass(create_grass):
+    """
+    Тест на создание экземпляра класса Трава газонная
+    """
     assert create_grass.price == 1000
     assert create_grass.color == "зеленый"
     assert create_grass.period_of_grown == 12
 
 
 def test__add__different_classes(create_smartphone, create_grass, product_dress):
+    """
+    Тест на сложение экземпляров разных классов
+    """
     with pytest.raises(TypeError):
         create_grass + create_smartphone
         create_smartphone + product_dress
